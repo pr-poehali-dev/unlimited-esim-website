@@ -275,30 +275,33 @@ const FAQ = () => {
             >
               Главная
             </Link>
-            <Link
-              to="/countries"
-              className="font-medium hover:text-primary transition-colors"
+            <Button
+              variant="link"
+              className="font-medium hover:text-primary transition-colors p-0"
+              onClick={() => alert("Страница в разработке")}
             >
               Страны
-            </Link>
-            <Link
-              to="/how-it-works"
-              className="font-medium hover:text-primary transition-colors"
+            </Button>
+            <Button
+              variant="link"
+              className="font-medium hover:text-primary transition-colors p-0"
+              onClick={() => alert("Страница в разработке")}
             >
               Как это работает
-            </Link>
+            </Button>
             <Link
               to="/faq"
               className="font-medium text-primary transition-colors"
             >
               FAQ
             </Link>
-            <Link
-              to="/support"
-              className="font-medium hover:text-primary transition-colors"
+            <Button
+              variant="link"
+              className="font-medium hover:text-primary transition-colors p-0"
+              onClick={() => alert("Страница в разработке")}
             >
               Поддержка
-            </Link>
+            </Button>
           </nav>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm">

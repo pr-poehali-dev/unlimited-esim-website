@@ -64,36 +64,39 @@ const Index = () => {
             <span className="font-bold text-xl text-primary">TraveleSIM</span>
           </div>
           <nav className="hidden md:flex gap-6">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="font-medium hover:text-primary transition-colors"
             >
               Главная
-            </a>
-            <a
-              href="/countries"
-              className="font-medium hover:text-primary transition-colors"
-            >
-              Страны
-            </a>
-            <a
-              href="/how-it-works"
-              className="font-medium hover:text-primary transition-colors"
-            >
-              Как это работает
-            </a>
-            <a
-              href="/faq"
+            </Link>
+            <Link
+              to="/faq"
               className="font-medium hover:text-primary transition-colors"
             >
               FAQ
-            </a>
-            <a
-              href="/support"
-              className="font-medium hover:text-primary transition-colors"
+            </Link>
+            <Button
+              variant="link"
+              className="font-medium hover:text-primary transition-colors p-0"
+              onClick={() => alert("Страница в разработке")}
+            >
+              Страны
+            </Button>
+            <Button
+              variant="link"
+              className="font-medium hover:text-primary transition-colors p-0"
+              onClick={() => alert("Страница в разработке")}
+            >
+              Как это работает
+            </Button>
+            <Button
+              variant="link"
+              className="font-medium hover:text-primary transition-colors p-0"
+              onClick={() => alert("Страница в разработке")}
             >
               Поддержка
-            </a>
+            </Button>
           </nav>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm">
