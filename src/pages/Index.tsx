@@ -89,13 +89,12 @@ const Index = () => {
             >
               FAQ
             </Link>
-            <Button
-              variant="link"
-              className="font-medium hover:text-primary transition-colors p-0"
-              onClick={() => alert("Страница в разработке")}
+            <Link
+              to="/support"
+              className="font-medium hover:text-primary transition-colors"
             >
               Поддержка
-            </Button>
+            </Link>
           </nav>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm">

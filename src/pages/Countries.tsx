@@ -76,7 +76,7 @@ const countriesData = [
       "Острова Пхи-Пхи: места съёмок фильма «Пляж»",
     ],
     connectivity:
-      "Хорошее 4G-покрытие в городах и на крупных островах. На удалённых островах и в джунглях сигнал может быть нестабильным. Рекомендуется скачать офлайн-карты и переводчик.",
+      "Хорошее 4G-покрытие в городах и на крупных островах. На удалённых островах и в джунглях сигнал может быть нестабилным. Рекомендуется скачать офлайн-карты и переводчик.",
   },
   {
     id: "egypt",
@@ -198,7 +198,6 @@ const Countries = () => {
     } else if (sortBy === "name-desc") {
       return b.name.localeCompare(a.name);
     } else if (sortBy === "price-asc") {
-      // Извлекаем числовое значение из строки цены для сортировки
       const priceA = parseFloat(a.price.replace("от ", "").replace("€", ""));
       const priceB = parseFloat(b.price.replace("от ", "").replace("€", ""));
       return priceA - priceB;
@@ -247,13 +246,12 @@ const Countries = () => {
             >
               FAQ
             </Link>
-            <Button
-              variant="link"
-              className="font-medium hover:text-primary transition-colors p-0"
-              onClick={() => alert("Страница в разработке")}
+            <Link
+              to="/support"
+              className="font-medium hover:text-primary transition-colors"
             >
               Поддержка
-            </Button>
+            </Link>
           </nav>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm">
@@ -403,10 +401,7 @@ const Countries = () => {
                   <div className="flex gap-2">
                     <Badge variant="secondary">Популярные</Badge>
                     <Badge variant="outline">
-                      {
-                        regions.find((region) => region.id === selectedRegion)
-                          ?.name
-                      }
+                      {regions.find((region) => region.id === selectedRegion)?.name}
                     </Badge>
                   </div>
                 </div>
@@ -419,142 +414,137 @@ const Countries = () => {
         <section className="py-12">
           <div className="container mx-auto px-4">
             {sortedCountries.length > 0 ? (
-              <>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10">
-                  {sortedCountries.map((country) => (
-                    <div key={country.id} className="flex flex-col h-full">
-                      <Link to={`/country/${country.id}`} className="mb-6">
-                        <Card className="overflow-hidden h-full hover:-translate-y-1 transition-transform">
-                          <div className="relative h-64 overflow-hidden">
-                            <img
-                              src={country.image}
-                              alt={country.name}
-                              className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
-                            />
-                            {country.popular && (
-                              <div className="absolute top-3 right-3">
-                                <Badge className="bg-primary">
-                                  Популярное направление
-                                </Badge>
-                              </div>
-                            )}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-10">
+                {sortedCountries.map((country) => (
+                  <div key={country.id} className="flex flex-col h-full">
+                    <Link to={`/country/${country.id}`} className="mb-6">
+                      <Card className="overflow-hidden h-full hover:-translate-y-1 transition-transform">
+                        <div className="relative h-64 overflow-hidden">
+                          <img
+                            src={country.image}
+                            alt={country.name}
+                            className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
+                          />
+                          {country.popular && (
+                            <div className="absolute top-3 right-3">
+                              <Badge className="bg-primary">
+                                Популярное направление
+                              </Badge>
+                            </div>
+                          )}
+                        </div>
+                        <CardHeader className="pb-2">
+                          <div className="flex justify-between items-start">
+                            <CardTitle className="text-2xl">
+                              {country.name}
+                            </CardTitle>
+                            <div className="text-xl font-bold text-primary">
+                              {country.price}
+                            </div>
                           </div>
-                          <CardHeader className="pb-2">
-                            <div className="flex justify-between items-start">
-                              <CardTitle className="text-2xl">
-                                {country.name}
-                              </CardTitle>
-                              <div className="text-xl font-bold text-primary">
-                                {country.price}
+                          <CardDescription className="flex items-center gap-1">
+                            <Icon
+                              name="Signal"
+                              className="h-3.5 w-3.5 text-green-500"
+                            />
+                            Покрытие {country.coverage}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-gray-600 mb-4">
+                            {country.description}
+                          </p>
+                          <Button className="w-full">
+                            Подробнее
+                            <Icon
+                              name="ChevronRight"
+                              className="ml-1 h-4 w-4"
+                            />
+                          </Button>
+                        </CardContent>
+                      </Card>
+                    </Link>
+
+                    {/* Дополнительная информация для путешественников */}
+                    <div className="bg-white rounded-xl border shadow-sm">
+                      <Accordion type="single" collapsible className="w-full">
+                        <AccordionItem value="info-1">
+                          <AccordionTrigger className="px-6 py-4">
+                            <div className="flex items-center">
+                              <Icon
+                                name="MapPin"
+                                className="h-5 w-5 text-primary mr-2"
+                              />
+                              <span>Популярные места</span>
+                            </AccordionTrigger>
+                          <AccordionContent className="px-6 pb-4">
+                            <ul className="space-y-2">
+                              {country.bestPlaces.map((place, idx) => (
+                                <li key={idx} className="flex items-start">
+                                  <Icon
+                                    name="Star"
+                                    className="h-4 w-4 text-amber-500 mr-2 mt-1 shrink-0"
+                                  />
+                                  <span>{place}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </AccordionContent>
+                        </AccordionItem>
+
+                        <AccordionItem value="info-2">
+                          <AccordionTrigger className="px-6 py-4">
+                            <div className="flex items-center">
+                              <Icon
+                                name="LightbulbIcon"
+                                className="h-5 w-5 text-primary mr-2"
+                              />
+                              <span>Полезные советы</span>
+                            </AccordionTrigger>
+                          <AccordionContent className="px-6 pb-4">
+                            <ul className="space-y-2">
+                              {country.travelTips.map((tip, idx) => (
+                                <li key={idx} className="flex items-start">
+                                  <Icon
+                                    name="Info"
+                                    className="h-4 w-4 text-blue-500 mr-2 mt-1 shrink-0"
+                                  />
+                                  <span>{tip}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </AccordionContent>
+                        </AccordionItem>
+
+                        <AccordionItem value="info-3">
+                          <AccordionTrigger className="px-6 py-4">
+                            <div className="flex items-center">
+                              <Icon
+                                name="Wifi"
+                                className="h-5 w-5 text-primary mr-2"
+                              />
+                              <span>Интернет и связь</span>
+                            </AccordionTrigger>
+                          <AccordionContent className="px-6 pb-4">
+                            <div className="mb-3">
+                              <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-1">
+                                <div
+                                  className="h-full bg-green-500 rounded-full"
+                                  style={{ width: country.coverage }}
+                                />
+                              </div>
+                              <div className="flex justify-between text-xs text-gray-500">
+                                <span>Покрытие сети: {country.coverage}</span>
                               </div>
                             </div>
-                            <CardDescription className="flex items-center gap-1">
-                              <Icon
-                                name="Signal"
-                                className="h-3.5 w-3.5 text-green-500"
-                              />
-                              Покрытие {country.coverage}
-                            </CardDescription>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-gray-600 mb-4">
-                              {country.description}
-                            </p>
-                            <Button className="w-full">
-                              Подробнее
-                              <Icon
-                                name="ChevronRight"
-                                className="ml-1 h-4 w-4"
-                              />
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </Link>
-
-                      {/* Дополнительная информация для путешественников */}
-                      <div className="bg-white rounded-xl border shadow-sm">
-                        <Accordion type="single" collapsible className="w-full">
-                          <AccordionItem value="info-1">
-                            <AccordionTrigger className="px-6 py-4">
-                              <div className="flex items-center">
-                                <Icon
-                                  name="MapPin"
-                                  className="h-5 w-5 text-primary mr-2"
-                                />
-                                <span>Популярные места</span>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-6 pb-4">
-                              <ul className="space-y-2">
-                                {country.bestPlaces.map((place, index) => (
-                                  <li key={index} className="flex items-start">
-                                    <Icon
-                                      name="Star"
-                                      className="h-4 w-4 text-amber-500 mr-2 mt-1 shrink-0"
-                                    />
-                                    <span>{place}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </AccordionContent>
-                          </AccordionItem>
-
-                          <AccordionItem value="info-2">
-                            <AccordionTrigger className="px-6 py-4">
-                              <div className="flex items-center">
-                                <Icon
-                                  name="LightbulbIcon"
-                                  className="h-5 w-5 text-primary mr-2"
-                                />
-                                <span>Полезные советы</span>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-6 pb-4">
-                              <ul className="space-y-2">
-                                {country.travelTips.map((tip, index) => (
-                                  <li key={index} className="flex items-start">
-                                    <Icon
-                                      name="Info"
-                                      className="h-4 w-4 text-blue-500 mr-2 mt-1 shrink-0"
-                                    />
-                                    <span>{tip}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </AccordionContent>
-                          </AccordionItem>
-
-                          <AccordionItem value="info-3">
-                            <AccordionTrigger className="px-6 py-4">
-                              <div className="flex items-center">
-                                <Icon
-                                  name="Wifi"
-                                  className="h-5 w-5 text-primary mr-2"
-                                />
-                                <span>Интернет и связь</span>
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="px-6 pb-4">
-                              <div className="mb-3">
-                                <div className="h-2 bg-gray-200 rounded-full overflow-hidden mb-1">
-                                  <div
-                                    className="h-full bg-green-500 rounded-full"
-                                    style={{ width: country.coverage }}
-                                  ></div>
-                                </div>
-                                <div className="flex justify-between text-xs text-gray-500">
-                                  <span>Покрытие сети: {country.coverage}</span>
-                                </div>
-                              </div>
-                              <p>{country.connectivity}</p>
-                            </AccordionContent>
-                          </AccordionItem>
-                        </Accordion>
-                      </div>
+                            <p>{country.connectivity}</p>
+                          </AccordionContent>
+                        </AccordionItem>
+                      </Accordion>
                     </div>
-                  ))}
-                </div>
-              </>
+                  </div>
+                ))}
+              </div>
             ) : (
               <div className="text-center py-16">
                 <Icon
@@ -655,353 +645,4 @@ const Countries = () => {
                         className="mr-2 shrink-0 mt-0.5"
                       >
                         !
-                      </Badge>
-                      <span>
-                        <strong>Храните ценности:</strong> в сейфе отеля,
-                        используйте антикражный рюкзак
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <Badge
-                        variant="destructive"
-                        className="mr-2 shrink-0 mt-0.5"
-                      >
-                        !
-                      </Badge>
-                      <span>
-                        <strong>Информация:</strong> изучите местные законы и
-                        обычаи перед поездкой
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <Badge
-                        variant="destructive"
-                        className="mr-2 shrink-0 mt-0.5"
-                      >
-                        !
-                      </Badge>
-                      <span>
-                        <strong>Связь:</strong> всегда имейте заряженный телефон
-                        с местной eSIM
-                      </span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Icon name="Smartphone" className="h-5 w-5 text-primary" />
-                    Необходимые приложения
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center mb-2">
-                        <Icon
-                          name="Map"
-                          className="h-4 w-4 text-green-600 mr-2"
-                        />
-                        <span className="font-medium">
-                          Maps.me / Google Maps
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Офлайн-карты для навигации без интернета
-                      </p>
-                    </div>
-
-                    <div className="p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center mb-2">
-                        <Icon
-                          name="Languages"
-                          className="h-4 w-4 text-blue-600 mr-2"
-                        />
-                        <span className="font-medium">Google Translate</span>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Переводчик с возможностью офлайн-работы
-                      </p>
-                    </div>
-
-                    <div className="p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center mb-2">
-                        <Icon
-                          name="Banknote"
-                          className="h-4 w-4 text-amber-600 mr-2"
-                        />
-                        <span className="font-medium">XE Currency</span>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Конвертер валют с актуальными курсами
-                      </p>
-                    </div>
-
-                    <div className="p-3 bg-gray-50 rounded-lg">
-                      <div className="flex items-center mb-2">
-                        <Icon
-                          name="Shield"
-                          className="h-4 w-4 text-red-600 mr-2"
-                        />
-                        <span className="font-medium">
-                          ExpressVPN / NordVPN
-                        </span>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        VPN для безопасного соединения
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Icon name="Wallet" className="h-5 w-5 text-primary" />
-                    Экономия в путешествии
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <Icon
-                        name="DollarSign"
-                        className="h-4 w-4 text-green-600 mr-2 mt-0.5 shrink-0"
-                      />
-                      <span>
-                        <strong>Питание:</strong> выбирайте местные заведения
-                        вдали от туристических мест
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <Icon
-                        name="DollarSign"
-                        className="h-4 w-4 text-green-600 mr-2 mt-0.5 shrink-0"
-                      />
-                      <span>
-                        <strong>Жилье:</strong> используйте агрегаторы для
-                        сравнения цен, бронируйте заранее
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <Icon
-                        name="DollarSign"
-                        className="h-4 w-4 text-green-600 mr-2 mt-0.5 shrink-0"
-                      />
-                      <span>
-                        <strong>Транспорт:</strong> изучите систему
-                        общественного транспорта и проездные
-                      </span>
-                    </li>
-                    <li className="flex items-start">
-                      <Icon
-                        name="DollarSign"
-                        className="h-4 w-4 text-green-600 mr-2 mt-0.5 shrink-0"
-                      />
-                      <span>
-                        <strong>Связь:</strong> приобретите eSIM вместо дорогого
-                        роуминга или физических SIM-карт
-                      </span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="py-16 bg-primary text-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Не нашли нужную страну?
-            </h2>
-            <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-              Свяжитесь с нами, и мы поможем подобрать оптимальное решение для
-              вашего путешествия
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-white text-primary hover:bg-gray-100"
-              >
-                <Icon name="MessageCircle" className="mr-2 h-5 w-5" />
-                Написать в чат
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/20"
-              >
-                <Icon name="Mail" className="mr-2 h-5 w-5" />
-                Связаться по email
-              </Button>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* Футер */}
-      <footer className="bg-gray-900 text-gray-400 py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center mb-4">
-                <Icon name="Wifi" className="h-6 w-6 text-primary mr-2" />
-                <span className="font-bold text-xl text-white">TraveleSIM</span>
-              </div>
-              <p className="mb-4">
-                Безлимитный интернет для ваших путешествий по всему миру
-              </p>
-              <div className="flex gap-4">
-                <a href="#" className="text-gray-400 hover:text-white">
-                  <Icon name="Facebook" className="h-5 w-5" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  <Icon name="Instagram" className="h-5 w-5" />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-white">
-                  <Icon name="Twitter" className="h-5 w-5" />
-                </a>
-              </div>
-            </div>
-            <div>
-              <h3 className="font-semibold text-white mb-4">Страны</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    to="/country/turkey"
-                    className="hover:text-white transition-colors"
-                  >
-                    Турция
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/country/thailand"
-                    className="hover:text-white transition-colors"
-                  >
-                    Таиланд
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/country/egypt"
-                    className="hover:text-white transition-colors"
-                  >
-                    Египет
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/country/china"
-                    className="hover:text-white transition-colors"
-                  >
-                    Китай
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/countries"
-                    className="hover:text-white transition-colors"
-                  >
-                    Все страны
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-white mb-4">Информация</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Button
-                    variant="link"
-                    className="p-0 text-gray-400 hover:text-white"
-                    onClick={() => alert("Страница в разработке")}
-                  >
-                    Как это работает
-                  </Button>
-                </li>
-                <li>
-                  <Button
-                    variant="link"
-                    className="p-0 text-gray-400 hover:text-white"
-                    onClick={() => alert("Страница в разработке")}
-                  >
-                    О нас
-                  </Button>
-                </li>
-                <li>
-                  <Link
-                    to="/faq"
-                    className="hover:text-white transition-colors"
-                  >
-                    Часто задаваемые вопросы
-                  </Link>
-                </li>
-                <li>
-                  <Button
-                    variant="link"
-                    className="p-0 text-gray-400 hover:text-white"
-                    onClick={() => alert("Страница в разработке")}
-                  >
-                    Блог
-                  </Button>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold text-white mb-4">Помощь</h3>
-              <ul className="space-y-2">
-                <li>
-                  <Button
-                    variant="link"
-                    className="p-0 text-gray-400 hover:text-white"
-                    onClick={() => alert("Страница в разработке")}
-                  >
-                    Поддержка
-                  </Button>
-                </li>
-                <li>
-                  <Button
-                    variant="link"
-                    className="p-0 text-gray-400 hover:text-white"
-                    onClick={() => alert("Страница в разработке")}
-                  >
-                    Контакты
-                  </Button>
-                </li>
-                <li>
-                  <Button
-                    variant="link"
-                    className="p-0 text-gray-400 hover:text-white"
-                    onClick={() => alert("Страница в разработке")}
-                  >
-                    Условия использования
-                  </Button>
-                </li>
-                <li>
-                  <Button
-                    variant="link"
-                    className="p-0 text-gray-400 hover:text-white"
-                    onClick={() => alert("Страница в разработке")}
-                  >
-                    Политика конфиденциальности
-                  </Button>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-            <p>© {new Date().getFullYear()} TraveleSIM. Все права защищены.</p>
-          </div>
-        </div>
-      </footer>
-    </div>
-  );
-};
-
-export default Countries;
+                      
