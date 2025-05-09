@@ -71,18 +71,11 @@ const Index = () => {
               Главная
             </Link>
             <Link
-              to="/faq"
+              to="/countries"
               className="font-medium hover:text-primary transition-colors"
             >
-              FAQ
-            </Link>
-            <Button
-              variant="link"
-              className="font-medium hover:text-primary transition-colors p-0"
-              onClick={() => alert("Страница в разработке")}
-            >
               Страны
-            </Button>
+            </Link>
             <Button
               variant="link"
               className="font-medium hover:text-primary transition-colors p-0"
@@ -90,6 +83,12 @@ const Index = () => {
             >
               Как это работает
             </Button>
+            <Link
+              to="/faq"
+              className="font-medium hover:text-primary transition-colors"
+            >
+              FAQ
+            </Link>
             <Button
               variant="link"
               className="font-medium hover:text-primary transition-colors p-0"

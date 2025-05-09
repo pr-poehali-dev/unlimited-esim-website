@@ -213,13 +213,12 @@ const CountryDetailPage = () => {
             >
               Главная
             </Link>
-            <Button
-              variant="link"
-              className="font-medium hover:text-primary transition-colors p-0"
-              onClick={() => alert("Страница в разработке")}
+            <Link
+              to="/countries"
+              className="font-medium hover:text-primary transition-colors"
             >
               Страны
-            </Button>
+            </Link>
             <Button
               variant="link"
               className="font-medium hover:text-primary transition-colors p-0"
