@@ -370,6 +370,32 @@ const CountryDetailPage = () => {
                     новее, Samsung Galaxy S20 и новее, Google Pixel 3 и новее,
                     поддерживают eSIM.
                   </p>
+                  <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
+                    <p className="text-gray-700 mb-2 font-medium">
+                      <Icon
+                        name="Info"
+                        className="h-4 w-4 inline-block mr-1 text-primary"
+                      />
+                      У вас устройство без поддержки eSIM?
+                    </p>
+                    <p className="text-gray-600 mb-3">
+                      Не беспокойтесь! У нас есть решение. Наши партнеры продают
+                      адаптеры Switch eSIM, которые позволяют использовать eSIM
+                      даже на устройствах без встроенной поддержки этой
+                      технологии.
+                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex items-center"
+                      onClick={() =>
+                        window.open("https://switch-esim.com", "_blank")
+                      }
+                    >
+                      <Icon name="ExternalLink" className="h-4 w-4 mr-1.5" />
+                      Перейти на сайт партнера
+                    </Button>
+                  </div>
                   <Button variant="outline" size="sm">
                     Проверить совместимость
                   </Button>

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -255,7 +254,7 @@ const FAQ = () => {
     (faq) =>
       (activeCategory === "all" || faq.category === activeCategory) &&
       (faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        faq.answer.toLowerCase().includes(searchQuery.toLowerCase()))
+        faq.answer.toLowerCase().includes(searchQuery.toLowerCase())),
   );
 
   return (
@@ -270,11 +269,36 @@ const FAQ = () => {
             </Link>
           </div>
           <nav className="hidden md:flex gap-6">
-            <Link to="/" className="font-medium hover:text-primary transition-colors">Главная</Link>
-            <Link to="/countries" className="font-medium hover:text-primary transition-colors">Страны</Link>
-            <Link to="/how-it-works" className="font-medium hover:text-primary transition-colors">Как это работает</Link>
-            <Link to="/faq" className="font-medium text-primary transition-colors">FAQ</Link>
-            <Link to="/support" className="font-medium hover:text-primary transition-colors">Поддержка</Link>
+            <Link
+              to="/"
+              className="font-medium hover:text-primary transition-colors"
+            >
+              Главная
+            </Link>
+            <Link
+              to="/countries"
+              className="font-medium hover:text-primary transition-colors"
+            >
+              Страны
+            </Link>
+            <Link
+              to="/how-it-works"
+              className="font-medium hover:text-primary transition-colors"
+            >
+              Как это работает
+            </Link>
+            <Link
+              to="/faq"
+              className="font-medium text-primary transition-colors"
+            >
+              FAQ
+            </Link>
+            <Link
+              to="/support"
+              className="font-medium hover:text-primary transition-colors"
+            >
+              Поддержка
+            </Link>
           </nav>
           <div className="flex items-center gap-4">
             <Button variant="ghost" size="sm">
@@ -294,17 +318,23 @@ const FAQ = () => {
           {/* Заголовок и поиск */}
           <div className="max-w-4xl mx-auto mb-12 text-center">
             <div className="mb-4 flex justify-center">
-              <Link to="/" className="text-gray-500 hover:text-primary flex items-center">
+              <Link
+                to="/"
+                className="text-gray-500 hover:text-primary flex items-center"
+              >
                 <Icon name="Home" className="mr-1 h-4 w-4" />
                 Главная
               </Link>
               <span className="mx-2 text-gray-400">/</span>
               <span className="text-gray-700">Часто задаваемые вопросы</span>
             </div>
-            <h1 className="text-4xl font-bold mb-4">Часто задаваемые вопросы</h1>
+            <h1 className="text-4xl font-bold mb-4">
+              Часто задаваемые вопросы
+            </h1>
             <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-              Здесь вы найдете ответы на самые распространенные вопросы о нашем сервисе, 
-              технологии eSIM и особенностях использования в разных странах.
+              Здесь вы найдете ответы на самые распространенные вопросы о нашем
+              сервисе, технологии eSIM и особенностях использования в разных
+              странах.
             </p>
             <div className="relative max-w-xl mx-auto">
               <Input
@@ -322,6 +352,49 @@ const FAQ = () => {
           </div>
 
           <div className="max-w-4xl mx-auto">
+            <div className="bg-white p-6 rounded-lg shadow-sm border">
+              <h3 className="text-xl font-semibold mb-4 flex items-center">
+                <Icon name="Smartphone" className="h-5 w-5 mr-2 text-primary" />
+                Совместимость устройств
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Убедитесь, что ваше устройство поддерживает технологию eSIM.
+                Большинство современных смартфонов, включая iPhone XS и новее,
+                Samsung Galaxy S20 и новее, Google Pixel 3 и новее, поддерживают
+                eSIM.
+              </p>
+              <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
+                <p className="text-gray-700 mb-2 font-medium">
+                  <Icon
+                    name="Info"
+                    className="h-4 w-4 inline-block mr-1 text-primary"
+                  />
+                  У вас устройство без поддержки eSIM?
+                </p>
+                <p className="text-gray-600 mb-3">
+                  Не беспокойтесь! У нас есть решение. Наши партнеры продают
+                  адаптеры Switch eSIM, которые позволяют использовать eSIM даже
+                  на устройствах без встроенной поддержки этой технологии. Эти
+                  компактные адаптеры легко подключаются к вашему устройству и
+                  делают возможным использование всех преимуществ eSIM во время
+                  путешествий.
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center"
+                  onClick={() =>
+                    window.open("https://switch-esim.com", "_blank")
+                  }
+                >
+                  <Icon name="ExternalLink" className="h-4 w-4 mr-1.5" />
+                  Перейти на сайт партнера
+                </Button>
+              </div>
+              <Button variant="outline" size="sm">
+                Проверить совместимость
+              </Button>
+            </div>
             {/* Категории */}
             <div className="mb-8 flex flex-wrap gap-2 justify-center">
               <Button
@@ -334,7 +407,9 @@ const FAQ = () => {
               {categories.map((category) => (
                 <Button
                   key={category.id}
-                  variant={activeCategory === category.id ? "default" : "outline"}
+                  variant={
+                    activeCategory === category.id ? "default" : "outline"
+                  }
                   onClick={() => setActiveCategory(category.id)}
                   className="rounded-full"
                 >
@@ -346,9 +421,17 @@ const FAQ = () => {
             {/* Список вопросов */}
             <div className="bg-white rounded-xl shadow-sm p-6 divide-y">
               {filteredQuestions.length > 0 ? (
-                <Accordion type="single" collapsible className="w-full divide-y">
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="w-full divide-y"
+                >
                   {filteredQuestions.map((faq) => (
-                    <AccordionItem key={faq.id} value={faq.id} className="border-none py-2">
+                    <AccordionItem
+                      key={faq.id}
+                      value={faq.id}
+                      className="border-none py-2"
+                    >
                       <AccordionTrigger className="text-left hover:no-underline py-4 text-lg font-medium">
                         {faq.question}
                       </AccordionTrigger>
@@ -360,16 +443,23 @@ const FAQ = () => {
                 </Accordion>
               ) : (
                 <div className="py-12 text-center">
-                  <Icon name="SearchX" className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-xl font-medium mb-2">Ничего не найдено</h3>
+                  <Icon
+                    name="SearchX"
+                    className="h-12 w-12 text-gray-300 mx-auto mb-4"
+                  />
+                  <h3 className="text-xl font-medium mb-2">
+                    Ничего не найдено
+                  </h3>
                   <p className="text-gray-500 mb-6">
                     К сожалению, по вашему запросу не найдено результатов.
                     Попробуйте изменить поисковый запрос или категорию.
                   </p>
-                  <Button onClick={() => {
-                    setSearchQuery("");
-                    setActiveCategory("general");
-                  }}>
+                  <Button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setActiveCategory("general");
+                    }}
+                  >
                     Сбросить фильтры
                   </Button>
                 </div>
@@ -378,11 +468,16 @@ const FAQ = () => {
 
             {/* Контакты поддержки */}
             <div className="mt-12 bg-primary/5 rounded-xl border border-primary/20 p-8 text-center">
-              <Icon name="HelpCircle" className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h2 className="text-2xl font-bold mb-2">Не нашли ответ на свой вопрос?</h2>
+              <Icon
+                name="HelpCircle"
+                className="h-12 w-12 text-primary mx-auto mb-4"
+              />
+              <h2 className="text-2xl font-bold mb-2">
+                Не нашли ответ на свой вопрос?
+              </h2>
               <p className="text-gray-600 mb-6 max-w-lg mx-auto">
-                Наша команда поддержки готова помочь вам с любыми вопросами 24/7. 
-                Обратитесь к нам удобным для вас способом.
+                Наша команда поддержки готова помочь вам с любыми вопросами
+                24/7. Обратитесь к нам удобным для вас способом.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button className="gap-2">
@@ -427,27 +522,42 @@ const FAQ = () => {
               <h3 className="font-semibold text-white mb-4">Страны</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/country/turkey" className="hover:text-white transition-colors">
+                  <Link
+                    to="/country/turkey"
+                    className="hover:text-white transition-colors"
+                  >
                     Турция
                   </Link>
                 </li>
                 <li>
-                  <Link to="/country/thailand" className="hover:text-white transition-colors">
+                  <Link
+                    to="/country/thailand"
+                    className="hover:text-white transition-colors"
+                  >
                     Таиланд
                   </Link>
                 </li>
                 <li>
-                  <Link to="/country/egypt" className="hover:text-white transition-colors">
+                  <Link
+                    to="/country/egypt"
+                    className="hover:text-white transition-colors"
+                  >
                     Египет
                   </Link>
                 </li>
                 <li>
-                  <Link to="/country/china" className="hover:text-white transition-colors">
+                  <Link
+                    to="/country/china"
+                    className="hover:text-white transition-colors"
+                  >
                     Китай
                   </Link>
                 </li>
                 <li>
-                  <Link to="/countries" className="hover:text-white transition-colors">
+                  <Link
+                    to="/countries"
+                    className="hover:text-white transition-colors"
+                  >
                     Все страны
                   </Link>
                 </li>
@@ -457,22 +567,34 @@ const FAQ = () => {
               <h3 className="font-semibold text-white mb-4">Информация</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/how-it-works" className="hover:text-white transition-colors">
+                  <Link
+                    to="/how-it-works"
+                    className="hover:text-white transition-colors"
+                  >
                     Как это работает
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about" className="hover:text-white transition-colors">
+                  <Link
+                    to="/about"
+                    className="hover:text-white transition-colors"
+                  >
                     О нас
                   </Link>
                 </li>
                 <li>
-                  <Link to="/faq" className="hover:text-white transition-colors">
+                  <Link
+                    to="/faq"
+                    className="hover:text-white transition-colors"
+                  >
                     Часто задаваемые вопросы
                   </Link>
                 </li>
                 <li>
-                  <Link to="/blog" className="hover:text-white transition-colors">
+                  <Link
+                    to="/blog"
+                    className="hover:text-white transition-colors"
+                  >
                     Блог
                   </Link>
                 </li>
@@ -482,22 +604,34 @@ const FAQ = () => {
               <h3 className="font-semibold text-white mb-4">Помощь</h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/support" className="hover:text-white transition-colors">
+                  <Link
+                    to="/support"
+                    className="hover:text-white transition-colors"
+                  >
                     Поддержка
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="hover:text-white transition-colors">
+                  <Link
+                    to="/contact"
+                    className="hover:text-white transition-colors"
+                  >
                     Контакты
                   </Link>
                 </li>
                 <li>
-                  <Link to="/terms" className="hover:text-white transition-colors">
+                  <Link
+                    to="/terms"
+                    className="hover:text-white transition-colors"
+                  >
                     Условия использования
                   </Link>
                 </li>
                 <li>
-                  <Link to="/privacy" className="hover:text-white transition-colors">
+                  <Link
+                    to="/privacy"
+                    className="hover:text-white transition-colors"
+                  >
                     Политика конфиденциальности
                   </Link>
                 </li>
