@@ -160,6 +160,12 @@ const CountryDetailPage = () => {
               Как это работает
             </a>
             <a
+              href="/faq"
+              className="font-medium hover:text-primary transition-colors"
+            >
+              FAQ
+            </a>
+            <a
               href="/support"
               className="font-medium hover:text-primary transition-colors"
             >
@@ -447,7 +453,7 @@ const CountryDetailPage = () => {
                   </div>
                   <div className="mt-4">
                     <Button variant="link" className="text-primary p-0">
-                      Посмотреть все часто задаваемые вопросы{" "}
+                      Посмотреть все часто задаваемые вопросы “
                       <Icon name="ChevronRight" className="ml-1 h-4 w-4" />
                     </Button>
                   </div>
